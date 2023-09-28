@@ -63,7 +63,7 @@ const Header = () => {
 	};
 
 	const currentLng = locales?.[i18n.language as keyof typeof locales];
-	const { text: textMode, icon: iconMode } = getThemeModeLang(themeAtom.mode as ModeThemeType);
+	const { text: textMode, icon: iconMode } = getThemeModeLang(themeAtom.mode);
 	return (
 		<Stack gap={2}>
 			<Stack gap={2} direction='row' alignSelf='flex-end'>

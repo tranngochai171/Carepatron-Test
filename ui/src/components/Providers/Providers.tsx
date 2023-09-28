@@ -55,7 +55,7 @@ const themeAtom = atom({
 
 // Define an atom to handle theme persistence
 export const themeAtomWithPersistence = atom(
-	(get) => {
+	(get): { mode: ModeThemeType; primaryColor: PrimaryColorThemeType } => {
 		let { mode, primaryColor } = get(themeAtom);
 
 		[mode, primaryColor] = [
@@ -71,7 +71,7 @@ export const themeAtomWithPersistence = atom(
 			},
 		].map(({ list, value, defaultValue }) => getDefaultThemeValue(list, value, defaultValue));
 
-		return { mode, primaryColor };
+		return { mode, primaryColor } as { mode: ModeThemeType; primaryColor: PrimaryColorThemeType };
 	},
 	(get, set, { type, selectedThemeValue }: { type: LocalHostThemeType; selectedThemeValue: string }) => {
 		switch (type) {
@@ -91,7 +91,7 @@ const Providers = ({ children }: Props) => {
 	const { mode, primaryColor } = useAtomValue(themeAtomWithPersistence);
 
 	return (
-		<ThemeProvider theme={createTheme(mode as ModeThemeType, primaryColor as PrimaryColorThemeType)}>
+		<ThemeProvider theme={createTheme(mode, primaryColor)}>
 			<CssBaseline />
 			<QueryClientProvider client={queryClient}>
 				{children}
