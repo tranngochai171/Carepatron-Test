@@ -10,5 +10,7 @@
 	"no": "Không",
 	"are_you_sure": "Bạn có chắc chắn?",
 	"light_mode": "Chế độ Sáng",
-	"dark_mode": "Chế độ Tối"
+	"dark_mode": "Chế độ Tối",
+	"page_not_found": "Không tìm thấy trang bạn cần tìm",
+	"back_to_home_page": "Quay về Trang chủ"
 }

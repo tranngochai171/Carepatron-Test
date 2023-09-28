@@ -9,6 +9,9 @@ export const THEME_CONSTANT = {
 
 const createTheme = (mode: (typeof commonConstants.THEME_MODE)[keyof typeof commonConstants.THEME_MODE]) =>
 	createMuiTheme({
+		typography: {
+			fontFamily: 'Inclusive Sans, Arial, sans-serif',
+		},
 		palette: {
 			mode,
 			primary: {
