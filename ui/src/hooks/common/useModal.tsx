@@ -43,7 +43,7 @@ const style: SxProps<Theme> = {
 
 type Props = {
 	isLoading?: boolean;
-	additionalStyles?: any;
+	additionalStyles?: SxProps<Theme>;
 };
 
 const useModal = ({ isLoading, additionalStyles = {} }: Props) => {
@@ -53,6 +53,7 @@ const useModal = ({ isLoading, additionalStyles = {} }: Props) => {
 	}, []);
 	const renderModal = useMemo(() => {
 		const ModalComponent = openModal?.modalType || null;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const data: any = openModal?.data || {};
 		if (ModalComponent) {
 			return (

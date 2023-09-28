@@ -10,23 +10,27 @@ export function apiDelete<T>(uri: string): Promise<T> {
 	return api<T>(uri, 'delete');
 }
 
-export function apiPost<T>(uri: string, data: any, onUploadProgress?: (progressEvent: any) => void): Promise<T> {
+export function apiPost<T>(
+	uri: string,
+	data: unknown,
+	onUploadProgress?: (progressEvent: unknown) => void
+): Promise<T> {
 	return api<T>(uri, 'post', data, onUploadProgress);
 }
 
-export function apiPut<T>(uri: string, data: any): Promise<T> {
+export function apiPut<T>(uri: string, data: unknown): Promise<T> {
 	return api<T>(uri, 'put', data);
 }
 
-export function apiPatch<T>(uri: string, data: any): Promise<T> {
+export function apiPatch<T>(uri: string, data: unknown): Promise<T> {
 	return api<T>(uri, 'patch', data);
 }
 
 async function api<T>(
 	uri: string,
 	method: Method = 'GET',
-	data: any = null,
-	onUploadProgress?: (progressEvent: any) => void
+	data: unknown = null,
+	onUploadProgress?: (progressEvent: unknown) => void
 ): Promise<T> {
 	return call(uri, method, data, onUploadProgress);
 }
@@ -34,8 +38,8 @@ async function api<T>(
 function call<T>(
 	uri: string,
 	method: Method = 'GET',
-	data: any = null,
-	onUploadProgress?: (progressEvent: any) => void
+	data: unknown = null,
+	onUploadProgress?: (progressEvent: unknown) => void
 ): Promise<T> {
 	let request: AxiosRequestConfig = {
 		url: `${API_URL}/${uri}`,

@@ -41,7 +41,7 @@ const useDialog = () => {
 
 	const renderDialog = useMemo(
 		() =>
-			!!open ? (
+			open ? (
 				<Dialog
 					open={!!open}
 					onClose={handleCloseDialog}

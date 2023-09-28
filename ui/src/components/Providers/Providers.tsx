@@ -12,6 +12,7 @@ type Props = {
 	children: React.ReactNode;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const onError = (error: any) => {
 	// Fallback Error Catch If we don't define onError when using useQuery
 	toast.error(error?.response?.data?.message ?? error?.message ?? i18next.t('common:something_end_wrong'));

@@ -7,6 +7,9 @@
 		"yarn": "please-use-npm",
 		"npm": ">=8.19.4"
 	},
+	"contributors": [
+		"Topy Tran <tranngochai171@gmail.com>"
+	],
 	"dependencies": {
 		"@emotion/react": "^11.9.3",
 		"@emotion/styled": "^11.9.3",
@@ -44,7 +47,9 @@
 		"start": "craco start",
 		"build": "craco build",
 		"test": "craco test",
-		"eject": "craco eject"
+		"eject": "craco eject",
+		"lint": "eslint .",
+		"prettier": "prettier --write ."
 	},
 	"eslintConfig": {
 		"extends": [
@@ -67,6 +72,9 @@
 	"devDependencies": {
 		"@craco/craco": "^7.1.0",
 		"@types/loadable__component": "^5.13.5",
-		"@types/react-virtualized": "^9.21.23"
+		"@types/react-virtualized": "^9.21.23",
+		"eslint": "^8.50.0",
+		"eslint-plugin-react": "^7.33.2",
+		"prettier": "^3.0.3"
 	}
 }

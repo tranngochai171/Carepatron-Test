@@ -9,7 +9,7 @@ function useMultiStepForm(steps: MultiStepFormType[]) {
 	const [fromGoto, setFromGoto] = useState<number | null>(null);
 
 	function next() {
-		if (!!fromGoto) {
+		if (fromGoto) {
 			setCurrentStepIndex(fromGoto);
 			setFromGoto(null);
 		} else {
@@ -21,7 +21,7 @@ function useMultiStepForm(steps: MultiStepFormType[]) {
 	}
 
 	function back() {
-		if (!!fromGoto) {
+		if (fromGoto) {
 			setCurrentStepIndex(fromGoto);
 			setFromGoto(null);
 		} else {

@@ -44,7 +44,7 @@ const Dashboard = <T,>({
 							</TableRow>
 						) : null}
 						{data?.length > 0
-							? data?.map((row: any, indexRow: number) => {
+							? data?.map((row: T, indexRow: number) => {
 									return (
 										<TableRow hover role='checkbox' tabIndex={-1} key={indexRow}>
 											{columns.map((column, indexColumn: number) => {

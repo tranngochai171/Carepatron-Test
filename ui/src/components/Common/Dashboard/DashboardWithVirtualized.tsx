@@ -82,6 +82,7 @@ const DashboardWithVirtualized = <T,>(props: DashboardProps<T>) => {
 			// @ts-ignore
 			TableHead,
 			// @ts-ignore
+			// eslint-disable-next-line react/prop-types, @typescript-eslint/no-unused-vars
 			TableRow: ({ item: _item, ...props }) => <TableRow {...props} />,
 			TableBody: React.forwardRef<HTMLTableSectionElement>((props, ref) => <TableBody {...props} ref={ref} />),
 		}),

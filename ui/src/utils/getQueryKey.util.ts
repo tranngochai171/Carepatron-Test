@@ -1,7 +1,7 @@
-export const CLIENT_LIST = 'CLIENT_LIST';
+export const CLIENT_LIST = 'CLIENT_LIST' as const;
 
 const getQueryKey = {
-	clientListQueryKey: (): any[] => [CLIENT_LIST],
+	clientListQueryKey: (): string[] => [CLIENT_LIST],
 };
 
 export default getQueryKey;

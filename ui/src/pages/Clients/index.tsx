@@ -1,12 +1,11 @@
 import { memo } from 'react';
-import { Paper, Typography, Button, Stack, InputBase, IconButton, CircularProgress, useTheme } from '@mui/material';
+import { Paper, Typography, Button, Stack, InputBase, IconButton, CircularProgress } from '@mui/material';
 import Page from '../../components/Page';
 import { useGetClients } from '@/hooks/clients/useClients';
 import useModal, { MODAL_TYPES } from '@/hooks/common/useModal';
 import { Search as SearchIcon } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { LANGUAGES, LOCAL_STORAGE_LANGUAGE_KEY, MAPPING_FLAG, NAME_SPACES, locales } from '@/i18n/i18n';
-import Dashboard from '@/components/Common/Dashboard/Dashboard';
 import { useAtom } from 'jotai';
 import { themeAtomWithPersistence } from '@/components/Providers/Providers';
 import commonConstants from '@/constants/common.constant';
@@ -32,7 +31,6 @@ const getThemeModeLang = (mode: (typeof commonConstants.THEME_MODE)[keyof typeof
 };
 
 function Clients() {
-	const theme = useTheme();
 	const { t, i18n } = useTranslation(NAME_SPACES.CLIENTS);
 	const { renderModal, setOpenModal } = useModal({});
 	const { query, search, debouncedOnHandleChangeKeyword, filteredClients, columns, renderValue, renderDialog } =

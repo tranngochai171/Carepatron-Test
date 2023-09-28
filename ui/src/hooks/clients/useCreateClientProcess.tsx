@@ -48,7 +48,7 @@ export const useAutoUpdateStep = ({ goTo }: AutoUpdateStepsType) => {
 export const useUpdateCreatingProcessData = (editData?: ClientType) => {
 	const [creatingProcessValue, setCreatingProcessValue] = useImmerAtom(createClientProcessValueAtom);
 	const restoreProcessValueToDefault = useCallback(() => {
-		setCreatingProcessValue((draft) => (draft = defaultValueProcess));
+		setCreatingProcessValue(() => defaultValueProcess);
 	}, [setCreatingProcessValue]);
 
 	const updateProcessStep = (currentStepIndex: number) => {
@@ -61,7 +61,7 @@ export const useUpdateCreatingProcessData = (editData?: ClientType) => {
 		data: CreateClientProcessValueType[T],
 		step: T
 	) => {
-		setCreatingProcessValue((draft: any) => {
+		setCreatingProcessValue((draft) => {
 			draft[step] = data;
 		});
 	};

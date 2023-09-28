@@ -113,7 +113,7 @@ export const useCreateUpdateClient = () => {
 			const { isEditing, ...rest } = payload;
 			return isEditing ? updateClient(rest) : createClient(rest);
 		},
-		onSuccess: (_: any, payload) => {
+		onSuccess: (_: unknown, payload) => {
 			const { isEditing } = payload;
 			queryClient.invalidateQueries(getQueryKey.clientListQueryKey());
 			toast.success(isEditing ? t('client.edit_successfully') : t('client.create_successfully'));

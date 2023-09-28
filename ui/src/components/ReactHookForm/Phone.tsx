@@ -1,5 +1,5 @@
 import { ComponentPropsWithoutRef } from 'react';
-import { MuiTelInput, MuiTelInputInfo } from 'mui-tel-input';
+import { MuiTelInput } from 'mui-tel-input';
 import { Controller, useFormContext } from 'react-hook-form';
 
 export type PhoneProps = ComponentPropsWithoutRef<typeof MuiTelInput> & { name: string; label: string };
@@ -22,7 +22,7 @@ const Phone = (props: PhoneProps) => {
 						inputProps={{
 							onBlur,
 						}}
-						onChange={(value: any, info: MuiTelInputInfo) => {
+						onChange={(value: string) => {
 							onChange(value);
 						}}
 						defaultCountry={DEFAULT_COUNTRY}
