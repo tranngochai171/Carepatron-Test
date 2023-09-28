@@ -68,7 +68,7 @@ function Clients() {
 					data={filteredClients || []}
 					renderValue={renderValue}
 					noDataText={t('dashboard.no_data_text')}
-					height={{ xs: 'calc(100dvh - 250px)', md: 'calc(100dvh - 200px)' }}
+					height={{ xs: 'calc(100dvh - 350px)', md: 'calc(100dvh - 300px)' }}
 				/>
 			</Paper>
 			{renderModal}

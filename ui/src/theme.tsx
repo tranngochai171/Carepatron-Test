@@ -1,13 +1,13 @@
 import { createTheme as createMuiTheme } from '@mui/material/styles';
-import commonConstants from './constants/common.constant';
+import { ModeThemeType, PrimaryColorThemeType } from './components/Providers/Providers';
 
-export const THEME_CONSTANT = {
-	primaryColor: '#345FFF',
-	secondaryColor: '#ffe734',
-	greenColor: '#008025',
+export const THEME_COLOR_CONSTANT = {
+	primaryColor: '#3b5dd9',
+	secondaryColor: '#de4040',
+	greenColor: '#19a13f',
 } as const;
 
-const createTheme = (mode: (typeof commonConstants.THEME_MODE)[keyof typeof commonConstants.THEME_MODE]) =>
+const createTheme = (mode: ModeThemeType, primaryColor: PrimaryColorThemeType) =>
 	createMuiTheme({
 		typography: {
 			fontFamily: 'Inclusive Sans, Arial, sans-serif',
@@ -15,7 +15,7 @@ const createTheme = (mode: (typeof commonConstants.THEME_MODE)[keyof typeof comm
 		palette: {
 			mode,
 			primary: {
-				main: THEME_CONSTANT.primaryColor,
+				main: primaryColor || THEME_COLOR_CONSTANT.primaryColor,
 			},
 		},
 		components: {
@@ -30,7 +30,7 @@ const createTheme = (mode: (typeof commonConstants.THEME_MODE)[keyof typeof comm
 				styleOverrides: {
 					root: {
 						'& .MuiSvgIcon-root.Mui-completed': {
-							color: THEME_CONSTANT.greenColor,
+							color: THEME_COLOR_CONSTANT.greenColor,
 						},
 					},
 				},

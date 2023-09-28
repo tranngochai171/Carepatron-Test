@@ -1,22 +1,42 @@
-import { Button, Stack, Typography } from '@mui/material';
+import {
+	Box,
+	Button,
+	FormControl,
+	InputLabel,
+	MenuItem,
+	Select,
+	SelectChangeEvent,
+	Stack,
+	Typography,
+	styled,
+} from '@mui/material';
 import { Brightness4 as Brightness4Icon, Brightness7 as Brightness7Icon } from '@mui/icons-material';
 import i18next from 'i18next';
 import commonConstants from '@/constants/common.constant';
 import { LANGUAGES, LOCAL_STORAGE_LANGUAGE_KEY, MAPPING_FLAG, NAME_SPACES, locales } from '@/i18n/i18n';
 import { useTranslation } from 'react-i18next';
 import { useAtom } from 'jotai';
-import { themeAtomWithPersistence } from '../Providers/Providers';
+import {
+	PrimaryColorThemeType,
+	modeThemeAtomWithPersistence,
+	primaryColorThemeAtomWithPersistence,
+} from '../Providers/Providers';
+import { THEME_COLOR_CONSTANT } from '@/theme';
 
-const getThemeModeLang = (mode: (typeof commonConstants.THEME_MODE)[keyof typeof commonConstants.THEME_MODE]) => {
+const ActionButton = styled(Button)({
+	width: '100%',
+});
+
+const getThemeModeLang = (mode: (typeof commonConstants.MODE_THEME)[keyof typeof commonConstants.MODE_THEME]) => {
 	const MAPPING_THEME_MODE: Record<
-		(typeof commonConstants.THEME_MODE)[keyof typeof commonConstants.THEME_MODE],
+		(typeof commonConstants.MODE_THEME)[keyof typeof commonConstants.MODE_THEME],
 		{ icon: React.ReactNode; text: string }
 	> = {
-		[commonConstants.THEME_MODE.LIGHT]: {
+		[commonConstants.MODE_THEME.LIGHT]: {
 			icon: <Brightness4Icon />,
 			text: i18next.t('common:light_mode'),
 		},
-		[commonConstants.THEME_MODE.DARK]: {
+		[commonConstants.MODE_THEME.DARK]: {
 			icon: <Brightness7Icon />,
 			text: i18next.t('common:dark_mode'),
 		},
@@ -25,29 +45,32 @@ const getThemeModeLang = (mode: (typeof commonConstants.THEME_MODE)[keyof typeof
 };
 
 const Header = () => {
-	const [themeAtom, setThemeAtom] = useAtom(themeAtomWithPersistence);
+	const [modeThemeAtom, setThemeAtom] = useAtom(modeThemeAtomWithPersistence);
+	const [primaryColorThemeAtom, setPrimaryColorThemeAtom] = useAtom(primaryColorThemeAtomWithPersistence);
 
-	const { t, i18n } = useTranslation(NAME_SPACES.CLIENTS);
+	const { t, i18n } = useTranslation([NAME_SPACES.CLIENTS, NAME_SPACES.COMMON]);
 	const changeLanguage = (lng: (typeof LANGUAGES)[keyof typeof LANGUAGES]) => {
 		i18n.changeLanguage(lng);
 		localStorage.setItem(LOCAL_STORAGE_LANGUAGE_KEY, lng);
 	};
 	const changeThemeMode = () => {
 		setThemeAtom(
-			themeAtom === commonConstants.THEME_MODE.LIGHT
-				? commonConstants.THEME_MODE.DARK
-				: commonConstants.THEME_MODE.LIGHT
+			modeThemeAtom === commonConstants.MODE_THEME.LIGHT
+				? commonConstants.MODE_THEME.DARK
+				: commonConstants.MODE_THEME.LIGHT
 		);
 	};
+
+	const changePrimaryColor = (event: SelectChangeEvent) => {
+		setPrimaryColorThemeAtom(event.target.value as PrimaryColorThemeType);
+	};
+
 	const currentLng = locales?.[i18n.language as keyof typeof locales];
-	const { text: textMode, icon: iconMode } = getThemeModeLang(themeAtom);
+	const { text: textMode, icon: iconMode } = getThemeModeLang(modeThemeAtom);
 	return (
-		<Stack direction='row' justifyContent='space-between'>
-			<Typography variant='h4' sx={{ textAlign: 'start' }} fontWeight={600}>
-				{t('clients')}
-			</Typography>
-			<Stack gap={2} direction='row'>
-				<Button
+		<Stack gap={2}>
+			<Stack gap={2} direction='row' alignSelf='flex-end'>
+				<ActionButton
 					variant='outlined'
 					startIcon={
 						<img
@@ -59,11 +82,30 @@ const Header = () => {
 					onClick={() => changeLanguage(i18n.language === LANGUAGES.VI ? LANGUAGES.EN : LANGUAGES.VI)}
 				>
 					{currentLng}
-				</Button>
-				<Button variant='outlined' onClick={changeThemeMode} endIcon={iconMode}>
+				</ActionButton>
+				<ActionButton variant='outlined' onClick={changeThemeMode} endIcon={iconMode}>
 					{textMode}
-				</Button>
+				</ActionButton>
+				<FormControl fullWidth variant='outlined' color='primary' sx={{ alignSelf: 'center' }}>
+					<InputLabel id='demo-simple-select-label'>{t('common:color')}</InputLabel>
+					<Select
+						labelId='demo-simple-select-label'
+						id='demo-simple-select'
+						value={primaryColorThemeAtom}
+						label={t('common:color')}
+						onChange={changePrimaryColor}
+					>
+						{Object.values(THEME_COLOR_CONSTANT).map((color) => (
+							<MenuItem key={color} value={color}>
+								<Box sx={{ width: 20, aspectRatio: '1 / 1', backgroundColor: color }} />
+							</MenuItem>
+						))}
+					</Select>
+				</FormControl>
 			</Stack>
+			<Typography variant='h4' sx={{ textAlign: 'start' }} fontWeight={600}>
+				{t('clients')}
+			</Typography>
 		</Stack>
 	);
 };

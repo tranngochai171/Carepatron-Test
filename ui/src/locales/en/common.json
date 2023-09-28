@@ -12,5 +12,6 @@
 	"light_mode": "Light Mode",
 	"dark_mode": "Dark Mode",
 	"page_not_found": "Page Not Found",
-	"back_to_home_page": "Back to Home page"
+	"back_to_home_page": "Back to Home page",
+	"color": "Color"
 }

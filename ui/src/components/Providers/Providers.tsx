@@ -5,8 +5,7 @@ import i18next from 'i18next';
 import { CssBaseline } from '@mui/material';
 import { atom, useAtomValue } from 'jotai';
 import commonConstants from '@/constants/common.constant';
-import { useMemo } from 'react';
-import createTheme from '@/theme';
+import createTheme, { THEME_COLOR_CONSTANT } from '@/theme';
 
 type Props = {
 	children: React.ReactNode;
@@ -32,39 +31,52 @@ const queryClient = new QueryClient({
 	},
 });
 
-export const LOCAL_STORAGE_THEME_KEY = 'theme';
+export const LOCAL_STORAGE_MODE_THEME_KEY = 'mode_theme';
+export const LOCAL_STORAGE_PRIMARY_COLOR_THEME_KEY = 'primary_color_theme';
 
-type ThemeModeType = (typeof commonConstants.THEME_MODE)[keyof typeof commonConstants.THEME_MODE];
+export type ModeThemeType = (typeof commonConstants.MODE_THEME)[keyof typeof commonConstants.MODE_THEME];
+export type PrimaryColorThemeType = (typeof THEME_COLOR_CONSTANT)[keyof typeof THEME_COLOR_CONSTANT];
 
 // Define an atom to read and write the theme
-const themeAtom = atom(localStorage.getItem(LOCAL_STORAGE_THEME_KEY) ?? commonConstants.THEME_MODE.LIGHT);
+const modeThemeAtom = atom(localStorage.getItem(LOCAL_STORAGE_MODE_THEME_KEY) ?? commonConstants.MODE_THEME.LIGHT);
+const primaryColorThemeAtom = atom(
+	localStorage.getItem(LOCAL_STORAGE_PRIMARY_COLOR_THEME_KEY) ?? THEME_COLOR_CONSTANT.primaryColor
+);
 
 // Define an atom to handle theme persistence
-export const themeAtomWithPersistence = atom(
+export const modeThemeAtomWithPersistence = atom(
 	(get) => {
-		const mode = get(themeAtom);
-		if (!Object.values(commonConstants.THEME_MODE).includes(mode as ThemeModeType)) {
-			return commonConstants.THEME_MODE.LIGHT;
+		const mode = get(modeThemeAtom);
+		if (!Object.values(commonConstants.MODE_THEME).includes(mode as ModeThemeType)) {
+			return commonConstants.MODE_THEME.LIGHT;
 		}
-		return mode as ThemeModeType;
+		return mode as ModeThemeType;
 	},
-	(get, set, selectedTheme: string) => {
-		set(themeAtom, selectedTheme);
-		localStorage.setItem(LOCAL_STORAGE_THEME_KEY, selectedTheme);
+	(get, set, selectedTheme: ModeThemeType) => {
+		set(modeThemeAtom, selectedTheme);
+		localStorage.setItem(LOCAL_STORAGE_MODE_THEME_KEY, selectedTheme);
+	}
+);
+export const primaryColorThemeAtomWithPersistence = atom(
+	(get) => {
+		const primaryColor = get(primaryColorThemeAtom);
+		if (!Object.values(THEME_COLOR_CONSTANT).includes(primaryColor as PrimaryColorThemeType)) {
+			return THEME_COLOR_CONSTANT.primaryColor;
+		}
+		return primaryColor as PrimaryColorThemeType;
+	},
+	(get, set, selectedPrimaryColorTheme: PrimaryColorThemeType) => {
+		set(primaryColorThemeAtom, selectedPrimaryColorTheme);
+		localStorage.setItem(LOCAL_STORAGE_PRIMARY_COLOR_THEME_KEY, selectedPrimaryColorTheme);
 	}
 );
 
 const Providers = ({ children }: Props) => {
-	const themeValue = useAtomValue(themeAtom);
-	const mode = useMemo(() => {
-		if (!Object.values(commonConstants.THEME_MODE).includes(themeValue as ThemeModeType)) {
-			return commonConstants.THEME_MODE.LIGHT;
-		}
-		return themeValue as ThemeModeType;
-	}, [themeValue]);
+	const mode = useAtomValue(modeThemeAtomWithPersistence);
+	const primaryColor = useAtomValue(primaryColorThemeAtomWithPersistence);
 
 	return (
-		<ThemeProvider theme={createTheme(mode)}>
+		<ThemeProvider theme={createTheme(mode, primaryColor)}>
 			<CssBaseline />
 			<QueryClientProvider client={queryClient}>
 				{children}

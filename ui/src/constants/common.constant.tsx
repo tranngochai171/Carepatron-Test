@@ -1,5 +1,5 @@
 const commonConstants = {
-	THEME_MODE: {
+	MODE_THEME: {
 		LIGHT: 'light',
 		DARK: 'dark',
 	} as const,
