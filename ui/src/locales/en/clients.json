@@ -1,0 +1,11 @@
+{
+	"clients": "Clients",
+	"action_bar": {
+		"search_place_holder": "Search clients...",
+		"create_new_client": "Create new Client"
+	},
+	"dashboard": {
+		"no_data_text": "No clients",
+		"header_label": { "name": "Name", "phone": "Phone", "email": "Email", "actions": "Actions" }
+	}
+}

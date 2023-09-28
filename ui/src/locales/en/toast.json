@@ -1,0 +1,7 @@
+{
+	"client": {
+		"create_successfully": "Successfully Created new Client",
+		"edit_successfully": "Successfully Edited Client",
+		"delete_successfully": "Successfully Deleted Client"
+	}
+}

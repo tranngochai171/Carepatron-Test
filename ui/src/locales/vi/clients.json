@@ -1,0 +1,11 @@
+{
+	"clients": "Danh sách khách hàng",
+	"action_bar": {
+		"search_place_holder": "Tìm kiếm...",
+		"create_new_client": "Tạo mới khách hàng"
+	},
+	"dashboard": {
+		"no_data_text": "Không tìm thấy khách hàng",
+		"header_label": { "name": "Tên", "phone": "Số điện thoại", "email": "Email", "actions": "Tác vụ" }
+	}
+}

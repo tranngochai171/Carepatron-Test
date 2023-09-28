@@ -1,0 +1,36 @@
+{
+	"create_new_client": "Tạo Khách hàng",
+	"edit_client": "Chỉnh sửa dữ liệu Khách hàng",
+	"progress_bar": {
+		"personal_details": "Thông tin cá nhân",
+		"contact_details": "Thông tin liên hệ"
+	},
+	"form_data": {
+		"first_name": {
+			"label": "Tên",
+			"error": {
+				"required": "Yêu cầu"
+			}
+		},
+		"last_name": {
+			"label": "Họ",
+			"error": {
+				"required": "Yêu cầu"
+			}
+		},
+		"email": {
+			"label": "Email",
+			"error": {
+				"required": "Yêu cầu",
+				"not_valid_email": "Email không hợp lệ"
+			}
+		},
+		"phone_number": {
+			"label": "Số điện thoại",
+			"error": {
+				"required": "Yêu cầu"
+			}
+		}
+	},
+	"create_client": "Tạo khách hàng"
+}

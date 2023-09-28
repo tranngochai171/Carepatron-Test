@@ -1,0 +1,7 @@
+{
+	"client": {
+		"create_successfully": "Thành công tạo mới Khách hàng",
+		"edit_successfully": "Thành công chỉnh sửa Khách hàng",
+		"delete_successfully": "Thành công xóa Khách hàng"
+	}
+}

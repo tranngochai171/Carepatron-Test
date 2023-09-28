@@ -1,0 +1,36 @@
+{
+	"create_new_client": "Create new Client",
+	"edit_client": "Edit Client",
+	"progress_bar": {
+		"personal_details": "Personal details",
+		"contact_details": "Contact details"
+	},
+	"form_data": {
+		"first_name": {
+			"label": "First Name",
+			"error": {
+				"required": "Required"
+			}
+		},
+		"last_name": {
+			"label": "Last Name",
+			"error": {
+				"required": "Required"
+			}
+		},
+		"email": {
+			"label": "Email",
+			"error": {
+				"required": "Required",
+				"not_valid_email": "Not a valid email"
+			}
+		},
+		"phone_number": {
+			"label": "Phone number",
+			"error": {
+				"required": "Required"
+			}
+		}
+	},
+	"create_client": "Create client"
+}

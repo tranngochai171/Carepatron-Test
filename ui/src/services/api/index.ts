@@ -1,13 +1,17 @@
-import apiClient from "./apiClient";
+import apiClient from './apiClient';
 
-export const getClients = (): Promise<IClient[]> => {
-  return apiClient.get<IClient[]>("clients");
+export const getClients = (): Promise<ClientType[]> => {
+	return apiClient.get<ClientType[]>('clients');
 };
 
-export const createClient = (client: IClient): Promise<void> => {
-  return apiClient.post<void>("clients", client);
+export const createClient = (client: ClientType): Promise<void> => {
+	return apiClient.post<void>('clients', client);
 };
 
-export const updateClient = (client: IClient): Promise<void> => {
-  return apiClient.put<void>("clients", client);
+export const updateClient = (client: ClientType): Promise<void> => {
+	return apiClient.put<void>('clients/' + client.id, client);
+};
+
+export const deleteClient = (clientId: string): Promise<void> => {
+	return apiClient.delete<void>('clients/' + clientId);
 };
