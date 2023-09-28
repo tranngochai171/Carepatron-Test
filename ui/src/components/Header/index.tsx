@@ -16,22 +16,15 @@ import commonConstants from '@/constants/common.constant';
 import { LANGUAGES, LOCAL_STORAGE_LANGUAGE_KEY, MAPPING_FLAG, NAME_SPACES, locales } from '@/i18n/i18n';
 import { useTranslation } from 'react-i18next';
 import { useAtom } from 'jotai';
-import {
-	PrimaryColorThemeType,
-	modeThemeAtomWithPersistence,
-	primaryColorThemeAtomWithPersistence,
-} from '../Providers/Providers';
+import { LOCAL_HOST_KEY, ModeThemeType, PrimaryColorThemeType, themeAtomWithPersistence } from '../Providers/Providers';
 import { THEME_COLOR_CONSTANT } from '@/theme';
 
 const ActionButton = styled(Button)({
 	width: '100%',
 });
 
-const getThemeModeLang = (mode: (typeof commonConstants.MODE_THEME)[keyof typeof commonConstants.MODE_THEME]) => {
-	const MAPPING_THEME_MODE: Record<
-		(typeof commonConstants.MODE_THEME)[keyof typeof commonConstants.MODE_THEME],
-		{ icon: React.ReactNode; text: string }
-	> = {
+const getThemeModeLang = (mode: ModeThemeType) => {
+	const MAPPING_THEME_MODE: Record<ModeThemeType, { icon: React.ReactNode; text: string }> = {
 		[commonConstants.MODE_THEME.LIGHT]: {
 			icon: <Brightness4Icon />,
 			text: i18next.t('common:light_mode'),
@@ -45,8 +38,7 @@ const getThemeModeLang = (mode: (typeof commonConstants.MODE_THEME)[keyof typeof
 };
 
 const Header = () => {
-	const [modeThemeAtom, setThemeAtom] = useAtom(modeThemeAtomWithPersistence);
-	const [primaryColorThemeAtom, setPrimaryColorThemeAtom] = useAtom(primaryColorThemeAtomWithPersistence);
+	const [themeAtom, setThemeAtom] = useAtom(themeAtomWithPersistence);
 
 	const { t, i18n } = useTranslation([NAME_SPACES.CLIENTS, NAME_SPACES.COMMON]);
 	const changeLanguage = (lng: (typeof LANGUAGES)[keyof typeof LANGUAGES]) => {
@@ -54,19 +46,24 @@ const Header = () => {
 		localStorage.setItem(LOCAL_STORAGE_LANGUAGE_KEY, lng);
 	};
 	const changeThemeMode = () => {
-		setThemeAtom(
-			modeThemeAtom === commonConstants.MODE_THEME.LIGHT
-				? commonConstants.MODE_THEME.DARK
-				: commonConstants.MODE_THEME.LIGHT
-		);
+		setThemeAtom({
+			type: LOCAL_HOST_KEY.MODE_THEME,
+			selectedThemeValue:
+				themeAtom.mode === commonConstants.MODE_THEME.LIGHT
+					? commonConstants.MODE_THEME.DARK
+					: commonConstants.MODE_THEME.LIGHT,
+		});
 	};
 
 	const changePrimaryColor = (event: SelectChangeEvent) => {
-		setPrimaryColorThemeAtom(event.target.value as PrimaryColorThemeType);
+		setThemeAtom({
+			type: LOCAL_HOST_KEY.PRIMARY_COLOR_THEME,
+			selectedThemeValue: event.target.value as PrimaryColorThemeType,
+		});
 	};
 
 	const currentLng = locales?.[i18n.language as keyof typeof locales];
-	const { text: textMode, icon: iconMode } = getThemeModeLang(modeThemeAtom);
+	const { text: textMode, icon: iconMode } = getThemeModeLang(themeAtom.mode as ModeThemeType);
 	return (
 		<Stack gap={2}>
 			<Stack gap={2} direction='row' alignSelf='flex-end'>
@@ -91,7 +88,7 @@ const Header = () => {
 					<Select
 						labelId='demo-simple-select-label'
 						id='demo-simple-select'
-						value={primaryColorThemeAtom}
+						value={themeAtom.primaryColor}
 						label={t('common:color')}
 						onChange={changePrimaryColor}
 					>
