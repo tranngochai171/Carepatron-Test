@@ -2,6 +2,11 @@
 	"name": "ui",
 	"version": "0.1.0",
 	"private": true,
+	"engines": {
+		"node": ">=14.0.0",
+		"yarn": "please-use-npm",
+		"npm": ">=8.19.4"
+	},
 	"dependencies": {
 		"@emotion/react": "^11.9.3",
 		"@emotion/styled": "^11.9.3",
